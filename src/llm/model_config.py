@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Configuration de l'API Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))  # Utilisation de votre clé API Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 class Model:
     @staticmethod
@@ -21,6 +21,6 @@ class Model:
 
         Réponse :"""
 
-        model = genai.GenerativeModel("gemini-1.5-flash-8b-exp-0827")  # Spécifiez le modèle Gemini à utiliser
+        model = genai.GenerativeModel("gemini-1.5-flash-8b-exp-0827")
         response = model.generate_content(prompt)
         return response.text
