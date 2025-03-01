@@ -54,6 +54,8 @@ senegal_policy_bot/
 ```bash
 git clone https://github.com/votre-username/senegal_policy_bot.git
 cd senegal_policy_bot
+
+# On peut aussi dézipper le fichier zippé directement
 ```
 
 2. Créer un environnement :

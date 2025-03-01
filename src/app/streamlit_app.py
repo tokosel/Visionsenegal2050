@@ -2,7 +2,6 @@ import sys
 import os
 from PIL import Image
 
-# Ajouter le répertoire racine du projet (où se trouve "src") au sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 import streamlit as st
@@ -15,7 +14,7 @@ image = Image.open('src/app/vsn2050.jpg')
 # Configuration de la page Streamlit
 st.set_page_config(page_title="Senegal BOT", page_icon="🇸🇳", layout="wide")
 st.title("Les Nouvelles Politiques Publiques Sénégalaises")
-
+st.markdown(f"Ce chatbot spécialisé est conçu pour fournir des informations précises sur les nouvelles politiques publiques du Sénégal .")
 # Disposition de l'image et du thème côte à côte
 col1, col2 = st.columns([2, 4])
 
@@ -37,7 +36,7 @@ keywords = {
     "Justice sociale": ["justice", "égalité", "droits humains", "discrimination", "justice sociale", "inégalité"]
 }
 
-# Titre et champ de saisie pour la question
+# Champ de saisie pour la question
 question = st.text_input(" ", key="question_input", placeholder="Entrez ici votre question ...")
 
 # Fonction pour vérifier si la question est liée au thème
@@ -73,7 +72,6 @@ if st.button("Soumettre") and question:
         # Utilisation du modèle Gemini pour générer la réponse
         response = Model.generate_response(context, question)
 
-# Affichage de la question et de la réponse avec des icônes
-
+# Affichage de la réponse
 if response:
     st.markdown(f"🤖 {response}")
