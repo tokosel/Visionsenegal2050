@@ -10,35 +10,35 @@ from src.retrieval.retriever import Retriever
 from src.llm.model_config import Model
 
 # Charger l'image du Sénégal
-image = Image.open('src/app/vsn2050.jpg')  # Remplacez par le chemin de l'image du Sénégal
+image = Image.open('src/app/vsn2050.jpg')
 
 # Configuration de la page Streamlit
-st.set_page_config(page_title="Senegal Bot", page_icon="🇸🇳", layout="wide")
+st.set_page_config(page_title="Senegal BOT", page_icon="🇸🇳", layout="wide")
 st.title("Les Nouvelles Politiques Publiques Sénégalaises")
 
 # Disposition de l'image et du thème côte à côte
-col1, col2 = st.columns([2, 3])  # col1 prendra 1 part de l'espace, col2 prendra 2 parts
+col1, col2 = st.columns([2, 4])
 
 with col1:
-    st.image(image, width=300)  # Largeur ajustée
+    st.image(image, width=300)
 
 with col2:
     # Sélectionner le thème de discussion
     theme = st.selectbox(
         "Choisissez un thème de discussion",
-        ["Souveraineté Economique","Technologique Numérique", "Justice sociale"]
+        ["Souveraineté Economique", "Technologique Numérique", "Justice sociale"]
     )
     st.subheader(f"Vous avez choisi le thème : {theme}")
 
 # Liste de mots-clés pour chaque thème
 keywords = {
-    "Souveraineté Economique": ["économie", "souveraineté", "ressources", "industries", "indépendance économique"],
+    "Souveraineté Economique": ["économie", "vision","souveraineté", "ressources", "industries", "indépendance économique"],
     "Technologique Numérique": ["technologie", "numérique", "digital", "innovation", "internet", "technologique"],
     "Justice sociale": ["justice", "égalité", "droits humains", "discrimination", "justice sociale", "inégalité"]
 }
 
 # Titre et champ de saisie pour la question
-question = st.text_input("", key="question_input", placeholder="Entrez ici votre question ...")
+question = st.text_input(" ", key="question_input", placeholder="Entrez ici votre question ...")
 
 # Fonction pour vérifier si la question est liée au thème
 def is_question_relevant(question, theme):
@@ -71,10 +71,9 @@ if st.button("Soumettre") and question:
         context = "\n".join(documents)
 
         # Utilisation du modèle Gemini pour générer la réponse
-        response = Model.generate_response(context, question)  # Passer context ET question à generate_response
+        response = Model.generate_response(context, question)
 
-# Affichage de la réponse (si une réponse est générée)
+# Affichage de la question et de la réponse avec des icônes
+
 if response:
-    st.subheader("Réponse :")
-    st.write(f"**Question :** {question}")
-    st.write(f"**Réponse :** {response}")
+    st.markdown(f"🤖 {response}")

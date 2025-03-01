@@ -10,3 +10,6 @@ python-dotenv
 PyYAML
 google-generativeai
 python-dotenv
+fastapi
+uvicorn
+pydantic
