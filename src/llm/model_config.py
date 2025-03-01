@@ -12,8 +12,13 @@ class Model:
     def generate_response(context, query):
         """Utilise Gemini pour générer une réponse basée sur le contexte et la question"""
         
-        prompt = f"""Tu es un expert en politiques publiques sénégalaises. 
-        Réponds à la question suivante en utilisant le contexte fourni :
+        prompt = f"""Tu es un assistant spécialisé dans les politiques publiques du Sénégal, 
+                    particulièrement celles mises en place par le Président Bassirou Diomaye Faye 
+                    et son Premier Ministre Ousmane Sonko.
+
+                    Utilisez les informations suivantes pour répondre à la question de l'utilisateur.
+                    Si tu ne trouvez pas l'information dans les passages fournis, indique-le clairement
+                    sans inventer de réponse :
 
         Contexte : {context}
 
