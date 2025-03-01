@@ -8,3 +8,5 @@ faiss-cpu
 tiktoken
 python-dotenv
 PyYAML
+google-generativeai
+python-dotenv
