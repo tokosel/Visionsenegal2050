@@ -52,8 +52,8 @@ senegal_policy_bot/
 ## Installation
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/votre-username/senegal_policy_bot.git
-cd senegal_policy_bot
+git clone https://github.com/tokosel/Visionsenegal2050.git
+cd Visionsenegal2050
 
 # On peut aussi dézipper le fichier zippé directement
 ```
