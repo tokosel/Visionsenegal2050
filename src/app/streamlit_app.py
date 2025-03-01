@@ -19,15 +19,15 @@ st.title("Les Nouvelles Politiques Publiques Sénégalaises")
 col1, col2 = st.columns([2, 3])  # col1 prendra 1 part de l'espace, col2 prendra 2 parts
 
 with col1:
-    st.image(image, caption="Bienvenue au Sénégal !", width=300)  # Largeur ajustée
+    st.image(image, width=300)  # Largeur ajustée
 
 with col2:
     # Sélectionner le thème de discussion
     theme = st.selectbox(
         "Choisissez un thème de discussion",
-        ["Politiques publiques", "Développement économique","Numérique", "Éducation", "Santé", "Autre"]
+        ["Souveraineté Economique","Technologique Numérique", "Justice sociale"]
     )
-    st.subheader(f"Posez une question sur : {theme}")
+    st.subheader(f"Vous avez choisi le thème : {theme}")
 
 # Titre et champ de saisie pour la question
 
