@@ -15,6 +15,7 @@ image = Image.open('src/app/vsn2050.jpg')  # Remplacez par le chemin de l'image 
 # Configuration de la page Streamlit
 st.set_page_config(page_title="Senegal Bot", page_icon="🇸🇳", layout="wide")
 st.title("Les Nouvelles Politiques Publiques Sénégalaises")
+
 # Disposition de l'image et du thème côte à côte
 col1, col2 = st.columns([2, 3])  # col1 prendra 1 part de l'espace, col2 prendra 2 parts
 
@@ -29,37 +30,48 @@ with col2:
     )
     st.subheader(f"Vous avez choisi le thème : {theme}")
 
+# Liste de mots-clés pour chaque thème
+keywords = {
+    "Souveraineté Economique": ["économie", "souveraineté", "ressources", "industries", "indépendance économique"],
+    "Technologique Numérique": ["technologie", "numérique", "digital", "innovation", "internet", "technologique"],
+    "Justice sociale": ["justice", "égalité", "droits humains", "discrimination", "justice sociale", "inégalité"]
+}
+
 # Titre et champ de saisie pour la question
+question = st.text_input("", key="question_input", placeholder="Entrez ici votre question ...")
 
-
-question = st.text_input("", key="question_input",placeholder="Entrez ici votre question ...")
+# Fonction pour vérifier si la question est liée au thème
+def is_question_relevant(question, theme):
+    # Convertir la question en minuscule pour une comparaison non sensible à la casse
+    question = question.lower()
+    # Vérifier si un mot-clé du thème est présent dans la question
+    for keyword in keywords.get(theme, []):
+        if keyword.lower() in question:
+            return True
+    return False
 
 # Initialiser un espace pour la réponse
 response = None
 
-# Vérifier si une réponse est déjà stockée dans la session
-if 'response' in st.session_state:
-    response = st.session_state.response
-
-# Bouton pour poser la question
+# Vérifier si une question a été posée et si elle est liée au thème choisi
 if st.button("Soumettre") and question:
-    # Utilisation du Retriever pour récupérer les documents en fonction de la question
-    retriever = Retriever(db_path="data/vector_store/chroma_db")
-    documents = retriever.retrieve_documents(question)
-    
-    # Aplatir la liste de documents si nécessaire
-    if isinstance(documents, list):
-        # Si des sous-listes existent, les aplatir
-        documents = [item for sublist in documents for item in (sublist if isinstance(sublist, list) else [sublist])]
+    if not is_question_relevant(question, theme):
+        st.warning("Veuillez poser une question en lien avec le thème choisi.")
+    else:
+        # Utilisation du Retriever pour récupérer les documents en fonction de la question
+        retriever = Retriever(db_path="data/vector_store/chroma_db")
+        documents = retriever.retrieve_documents(question)
+        
+        # Aplatir la liste de documents si nécessaire
+        if isinstance(documents, list):
+            # Si des sous-listes existent, les aplatir
+            documents = [item for sublist in documents for item in (sublist if isinstance(sublist, list) else [sublist])]
 
-    # Joindre les documents dans une seule chaîne de caractères
-    context = "\n".join(documents)
+        # Joindre les documents dans une seule chaîne de caractères
+        context = "\n".join(documents)
 
-    # Utilisation du modèle Gemini pour générer la réponse
-    response = Model.generate_response(context, question)  # Passer context ET question à generate_response
-
-    # Sauvegarder la réponse dans la session
-    st.session_state.response = response
+        # Utilisation du modèle Gemini pour générer la réponse
+        response = Model.generate_response(context, question)  # Passer context ET question à generate_response
 
 # Affichage de la réponse (si une réponse est générée)
 if response:
