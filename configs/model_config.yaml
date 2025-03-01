@@ -1,0 +1,6 @@
+model:
+  provider: "deepseek"
+  model_name: "deepseek-r1:671b"
+  temperature: 0.7
+  max_tokens: 512
+  top_p: 0.9

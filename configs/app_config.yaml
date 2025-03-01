@@ -1,0 +1,7 @@
+app:
+  name: "Senegal Policy Bot"
+  description: "Chatbot basé sur les politiques publiques sénégalaises"
+  version: "1.0"
+  debug: True
+  embedding_model: "deepseek-r1:671b"
+  retriever_top_k: 5
