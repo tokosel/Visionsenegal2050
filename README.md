@@ -1,4 +1,4 @@
-# SENEGAL : JUB JUBAL JUBANTI
+# Chatbot Intelligent avec RAG et LangChain
 
 ## Description
 Ce chatbot spécialisé est conçu pour fournir des informations précises sur les nouvelles politiques publiques du Sénégal .
