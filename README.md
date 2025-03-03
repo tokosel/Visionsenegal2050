@@ -36,6 +36,7 @@ senegal_policy_bot/
 │   │
 │   └── app/                           # Interface utilisateur
 │       └── streamlit_app.py           # Application Streamlit principale
+        └── api.py                     # Exposition avec FASTAPI
 │
 ├── .env                               # Variables d'environnement
 ├── requirements.txt                   # Dépendances du projet

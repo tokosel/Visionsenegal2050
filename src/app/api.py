@@ -9,7 +9,7 @@ app = FastAPI()
 class QueryRequest(BaseModel):
     question: str
 
-@app.post("senegalbot/api")
+@app.post("/api")
 def query_model(request: QueryRequest):
     """Endpoint pour récupérer une réponse basée sur la question de l'utilisateur."""
     
