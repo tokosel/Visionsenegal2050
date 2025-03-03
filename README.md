@@ -40,7 +40,7 @@ senegal_policy_bot/
 ├── .env                               # Variables d'environnement
 ├── requirements.txt                   # Dépendances du projet
 ├── README.md                          # Documentation du projet
-└── pipeline.py                            # Point d'entrée principal
+└── pipeline.py                        # Lancement du processus d'ingestion des données
 ```
 
 ## Fonctionnalités
