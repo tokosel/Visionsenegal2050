@@ -1,8 +1,6 @@
 langchain
 chromadb
 pypdf
-openai
-deepseek
 streamlit
 faiss-cpu
 tiktoken
