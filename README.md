@@ -110,4 +110,4 @@ http://localhost:8000/docs
 ```
 
 ## Auteur
-### Abdoulaye SALL M2 SID UADB 2024-2025
+### [Abdoulaye SALL](https://www.linkedin.com/in/abdoulayesall/) M2 SID UADB 2024-2025
