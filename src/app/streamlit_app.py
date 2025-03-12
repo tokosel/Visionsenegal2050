@@ -8,36 +8,125 @@ import streamlit as st
 from src.retrieval.retriever import Retriever
 from src.llm.model_config import Model
 
-# Charger l'image du Sénégal
-image = Image.open('src/app/vsn2050.jpg')
-
 # Configuration de la page Streamlit
-st.set_page_config(page_title="Senegal BOT", page_icon="🇸🇳", layout="wide")
-st.title("Les Nouvelles Politiques Publiques Sénégalaises")
-st.markdown(f"Ce chatbot spécialisé est conçu pour fournir des informations précises sur les nouvelles politiques publiques du Sénégal .")
-# Disposition de l'image et du thème côte à côte
-col1, col2 = st.columns([2, 4])
+st.set_page_config(
+    page_title="Senegal BOT",
+    page_icon="🇸🇳",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-with col1:
-    st.image(image, width=300)
+# === SIDEBAR / MENU LATÉRAL ===
+with st.sidebar:
+    st.title("🇸🇳 Vision Sénégal 2050")
+    
+    # Logo ou image dans la sidebar
+    sidebar_image = Image.open('src/app/vsn2050.jpg')
+    st.image(sidebar_image, width=250)
+    
+    st.markdown("---")
+    
+    # Description du projet
+    st.subheader("📝 À propos du projet")
+    st.markdown("""
+    Ce chatbot utilise l'intelligence artificielle pour rendre accessible les 
+    nouvelles politiques publiques du Sénégal. Notre mission est d'informer 
+    les citoyens sur les initiatives gouvernementales dans des domaines clés 
+    pour l'avenir du pays.
+    """)
+    
+    st.markdown("---")
+    
+    # Liste des fonctionnalités
+    st.subheader("✨ Fonctionnalités")
+    features = {
+        "💬 Discussion thématique": "Posez des questions sur des thèmes spécifiques",
+        "🔍 Recherche contextuelle": "Récupération d'informations précises",
+        "📊 Suivi des politiques": "Informations sur les politiques en cours",
+        "🌐 Données actualisées": "Base de connaissances mise à jour régulièrement"
+    }
+    
+    for icon_feature, description in features.items():
+        st.markdown(f"**{icon_feature}**: {description}")
+    
+    st.markdown("---")
+    
+    # Contact ou aide
+    st.subheader("❓ Besoin d'aide?")
+    st.markdown("Pour toute question technique ou suggestion, contactez-nous à travers le bouton ci-dessous.")
+    if st.button("📧 Nous contacter"):
+        st.info("Connectez-vous avec moi sur [LinkedIn](https://www.linkedin.com/in/abdoulayesall/)")
+    
+    # Attribution
+    st.markdown("---")
+    st.caption("© 2025 - Projet Vision Sénégal 2050")
 
-with col2:
-    # Sélectionner le thème de discussion
-    theme = st.selectbox(
-        "Choisissez un thème de discussion",
-        ["Souveraineté Economique", "Technologique Numérique", "Justice sociale"]
-    )
-    st.subheader(f"Vous avez choisi le thème : {theme}")
+# === CONTENU PRINCIPAL ===
+# Titre principal
+st.title("JUB JUBAL JUBANTI")
+st.markdown("Ce chatbot spécialisé est conçu pour fournir des informations précises sur les nouvelles politiques publiques du Sénégal.")
+
+# Container pour la zone de discussion
+chat_container = st.container()
+
+# Sélectionner le thème de discussion avec des émojis
+theme_emojis = {
+    "Souveraineté Economique": "💰",
+    "Technologique Numérique": "💻",
+    "Justice sociale": "⚖️"
+}
+
+theme = st.selectbox(
+    "Choisissez un thème de discussion",
+    list(theme_emojis.keys()),
+    format_func=lambda x: f"{theme_emojis[x]} {x}"
+)
+
+st.subheader(f"Vous avez choisi le thème : {theme_emojis[theme]} {theme}")
 
 # Liste de mots-clés pour chaque thème
 keywords = {
-    "Souveraineté Economique": ["économie", "vision","souveraineté", "ressources", "industries", "indépendance économique"],
+    "Souveraineté Economique": ["économie", "vision", "souveraineté", "ressources", "industries", "indépendance économique"],
     "Technologique Numérique": ["technologie", "numérique", "digital", "innovation", "internet", "technologique"],
     "Justice sociale": ["justice", "égalité", "droits humains", "discrimination", "justice sociale", "inégalité"]
 }
 
-# Champ de saisie pour la question
-question = st.text_input(" ", key="question_input", placeholder="Entrez ici votre question ...")
+# Zone interactive de chat
+with chat_container:
+    # Initialiser l'historique de chat dans la session si ce n'est pas déjà fait
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
+    
+    # Afficher l'historique de chat
+    for message in st.session_state.chat_history:
+        if message["role"] == "user":
+            st.markdown(f"<div style='background-color:#121936;padding:10px;border-radius:5px;margin-bottom:10px;'><strong>👤 Vous:</strong> {message['content']}</div>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<div style='background-color:#121936;padding:10px;border-radius:5px;margin-bottom:10px;'><strong>🤖 SenegalBot:</strong> {message['content']}</div>", unsafe_allow_html=True)
+
+    # Suggestions de questions basées sur le thème
+    theme_suggestions = {
+        "Souveraineté Economique": [
+            "Quelles sont les politiques pour renforcer la souveraineté économique?",
+            "Comment le Sénégal développe-t-il ses industries locales?"
+        ],
+        "Technologique Numérique": [
+            "Quelles initiatives numériques sont en cours au Sénégal?",
+            "Comment la technologie est-elle intégrée dans l'administration?"
+        ],
+        "Justice sociale": [
+            "Quelles mesures sont prises pour réduire les inégalités?",
+            "Comment le gouvernement améliore-t-il l'accès à l'éducation?"
+        ]
+    }
+    
+    # Afficher les suggestions
+    if st.session_state.chat_history == []:
+        st.markdown("#### 💡 Suggestions de questions:")
+        cols = st.columns(2)
+        for i, suggestion in enumerate(theme_suggestions[theme]):
+            if cols[i % 2].button(suggestion, key=f"suggestion_{i}"):
+                st.session_state.question = suggestion
 
 # Fonction pour vérifier si la question est liée au thème
 def is_question_relevant(question, theme):
@@ -49,29 +138,59 @@ def is_question_relevant(question, theme):
             return True
     return False
 
-# Initialiser un espace pour la réponse
-response = None
+# Champ de saisie pour la question avec mémorisation
+if "question" not in st.session_state:
+    st.session_state.question = ""
 
-# Vérifier si une question a été posée et si elle est liée au thème choisi
-if st.button("Soumettre") and question:
+# Interface de saisie de question
+question = st.text_input(
+    label="Posez votre question",
+    value=st.session_state.question,
+    key="question_input",
+    placeholder=f"Posez une question sur {theme}...",
+)
+
+# Mémoriser la question
+if question != st.session_state.question:
+    st.session_state.question = question
+
+# Traitement de la soumission
+if st.button("💬 Envoyer", use_container_width=True) and question:
+    # Ajouter la question à l'historique
+    st.session_state.chat_history.append({"role": "user", "content": question})
+    
+    # Vérifier la pertinence
     if not is_question_relevant(question, theme):
-        st.warning("Veuillez poser une question en lien avec le thème choisi.")
+        response = f"Votre question ne semble pas être liée au thème '{theme}'. Pourriez-vous reformuler ou choisir une question en lien avec ce thème? Vous pouvez utiliser des mots-clés comme: {', '.join(keywords[theme])}"
+        st.session_state.chat_history.append({"role": "assistant", "content": response})
     else:
         # Utilisation du Retriever pour récupérer les documents en fonction de la question
-        retriever = Retriever(db_path="data/vector_store/chroma_db")
-        documents = retriever.retrieve_documents(question)
-        
-        # Aplatir la liste de documents si nécessaire
-        if isinstance(documents, list):
-            # Si des sous-listes existent, les aplatir
-            documents = [item for sublist in documents for item in (sublist if isinstance(sublist, list) else [sublist])]
+        with st.spinner("🤖 Recherche d'informations en cours..."):
+            retriever = Retriever(db_path="data/vector_store/chroma_db")
+            documents = retriever.retrieve_documents(question)
+            
+            # Aplatir la liste de documents si nécessaire
+            if isinstance(documents, list):
+                # Si des sous-listes existent, les aplatir
+                documents = [item for sublist in documents for item in (sublist if isinstance(sublist, list) else [sublist])]
 
-        # Joindre les documents dans une seule chaîne de caractères
-        context = "\n".join(documents)
+            # Joindre les documents dans une seule chaîne de caractères
+            context = "\n".join(documents)
 
-        # Utilisation du modèle Gemini pour générer la réponse
-        response = Model.generate_response(context, question)
+            # Utilisation du modèle pour générer la réponse
+            response = Model.generate_response(context, question)
+            
+            # Ajouter la réponse à l'historique
+            st.session_state.chat_history.append({"role": "assistant", "content": response})
+    
+    # Réinitialiser le champ de question après soumission
+    st.session_state.question = ""
+    
+    # Recharger la page pour afficher le nouveau message
+    st.rerun()
 
-# Affichage de la réponse
-if response:
-    st.markdown(f"🤖 {response}")
+# Bouton pour effacer l'historique
+if st.session_state.chat_history:
+    if st.button("🧹 Effacer l'historique", use_container_width=True):
+        st.session_state.chat_history = []
+        st.rerun()
