@@ -1,3 +1,5 @@
+import os
+os.environ["SQLITE_EXPERIMENTAL"] = "1"  # Permet d'utiliser une version récente si disponible
 import chromadb
 
 class VectorStore:
