@@ -52,9 +52,8 @@ with st.sidebar:
     st.markdown("---")
     
     # Contact ou aide
-    st.subheader("❓ Besoin d'aide?")
-    st.markdown("Pour toute question technique ou suggestion, contactez-nous à travers le bouton ci-dessous.")
-    if st.button("📧 Nous contacter"):
+    st.markdown("Pour toute suggestion, contactez-moi à travers le bouton ci-dessous.")
+    if st.button("📧 Me contacter"):
         st.info("Connectez-vous avec moi sur [LinkedIn](https://www.linkedin.com/in/abdoulayesall/)")
     
     # Attribution
