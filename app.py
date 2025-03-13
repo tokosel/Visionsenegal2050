@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 import streamlit as st
 from src.retrieval.retriever import Retriever
-from src.llm.model_config import Model
+from model_config import Model
 
 # Configuration de la page Streamlit
 st.set_page_config(
@@ -21,7 +21,7 @@ with st.sidebar:
     st.title("🇸🇳 Vision Sénégal 2050")
     
     # Logo ou image dans la sidebar
-    sidebar_image = Image.open('src/app/vsn2050.jpg')
+    sidebar_image = Image.open('vsn2050.jpg')
     st.image(sidebar_image, width=250)
     
     st.markdown("---")

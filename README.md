@@ -31,17 +31,17 @@ senegal_policy_bot/
 │   │   ├── vector_store.py            # Interface avec ChromaDB
 │   │   └── retriever.py               # Logique de recherche et récupération
 │   │
-│   ├── llm/                           # Intégration des modèles de langage
+│   ├── llm/                           
 │   │   ├── model_config.py            # Configuration du LLM choisi
 │   │
-│   └── app/                           # Interface utilisateur
-│       └── streamlit_app.py           # Application Streamlit principale
-│       └── api.py                     # Exposition avec FASTAPI
 │
 ├── .env                               # Variables d'environnement
-├── requirements.txt                   # Dépendances du projet
-├── README.md                          # Documentation du projet
+├── api.py                             # Exposition avec FASTAPI
+├── app.py                             # Application Streamlit principale
 └── pipeline.py                        # Lancement du processus d'ingestion des données
+├── README.md                          # Documentation du projet
+├── requirements.txt                   # Dépendances du projet
+
 ```
 
 ## Fonctionnalités
@@ -93,7 +93,7 @@ python pipeline.py
 ```
 2. Démarrer l'application :
 ```bash
-streamlit run src/app/streamlit_app.py
+streamlit run app.py
 ```
 
 3. Accéder à l'interface via le navigateur :
@@ -104,7 +104,7 @@ http://localhost:8501
 4. Utilisation de l'API:
 ```bash
 # Lancement de l'API
-uvicorn src.app.api:app --host 0.0.0.0 --port 8000 --reload
+uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 #Test de l'API
 http://localhost:8000/docs
 ```
