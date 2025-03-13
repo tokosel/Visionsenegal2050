@@ -1,8 +1,8 @@
 import os
-from src.ingestion.document_loader import DocumentLoader
-from src.ingestion.text_processor import TextProcessor
-from src.ingestion.chunker import Chunker
-from src.ingestion.indexer import Indexer
+from ingestion.document_loader import DocumentLoader
+from ingestion.text_processor import TextProcessor
+from ingestion.chunker import Chunker
+from ingestion.indexer import Indexer
 
 # Définition des chemins
 RAW_DOCS_DIR = "data/raw"

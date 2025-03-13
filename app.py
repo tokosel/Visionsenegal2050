@@ -1,11 +1,7 @@
-import sys
-import os
 from PIL import Image
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-
 import streamlit as st
-from src.retrieval.retriever import Retriever
+from retriever import Retriever
 from model_config import Model
 
 # Configuration de la page Streamlit
