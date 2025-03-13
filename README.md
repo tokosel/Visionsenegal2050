@@ -19,29 +19,22 @@ senegal_policy_bot/
 │   └── vector_store/                  # Base de données vectorielle
 │       └── chroma_db/                 # Base ChromaDB
 │
-├── src/                               # Code source
-│   │
-│   ├── ingestion/                     # Scripts pour l'ingestion des documents
-│   │   ├── document_loader.py         # Chargement des documents PDF
-│   │   ├── text_processor.py          # Nettoyage et préparation du texte
-│   │   ├── chunker.py                 # Segmentation des documents
-│   │   └── indexer.py                 # Création de l'index vectoriel
-│   │
-│   ├── retrieval/                     # Scripts pour la récupération des informations
-│   │   ├── vector_store.py            # Interface avec ChromaDB
-│   │   └── retriever.py               # Logique de recherche et récupération
-│   │
-│   ├── llm/                           
-│   │   ├── model_config.py            # Configuration du LLM choisi
-│   │
+├── ingestion/                         # Scripts pour l'ingestion des documents
+│   ├── chunker.py                     # Segmentation des documents
+│   ├── document_loader.py             # Chargement des documents PDF
+│   ├── indexer.py                     # Création de l'index vectoriel
+│   └── text_processor.py              # Nettoyage et préparation du texte
 │
 ├── .env                               # Variables d'environnement
+├── .gitignore
 ├── api.py                             # Exposition avec FASTAPI
 ├── app.py                             # Application Streamlit principale
-└── pipeline.py                        # Lancement du processus d'ingestion des données
+├── model_config.py                    # Configuration du LLM choisi
+├── pipeline.py                        # Lancement du processus d'ingestion des données
 ├── README.md                          # Documentation du projet
 ├── requirements.txt                   # Dépendances du projet
-
+├── retriever.py                       # Logique de recherche et récupération
+└── vector_store.py                    # Interface avec ChromaDB
 ```
 
 ## Fonctionnalités
