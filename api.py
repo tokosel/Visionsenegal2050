@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from src.retrieval.retriever import Retriever
-from src.llm.model_config import Model
+from retriever import Retriever
+from model_config import Model
 
 app = FastAPI()
 
